@@ -1,6 +1,8 @@
 import { NostrEvent } from '@nostr-dev-kit/ndk'
 
-export const EXAMPLE_KIND_1_EVENT_ID = 'a5f35583eabee582f4ca17a9b67cfbbeb4e254c9f0c7e075bd62b03e6db5a7ff'
+export const NIP64_KIND = 30
+
+export const EXAMPLE_KIND_1_EVENT_ID = 'nevent1qqs2kn0xfgz0mrt5ed67tfmq7mnmwj80j2a7pyvs53qeg9e4ms8kuqq83007e'
 
 // const EXAMPLE_KIND_30_EVENT_ID = '' // TODO
 

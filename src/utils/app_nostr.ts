@@ -12,6 +12,6 @@ const publicRelays = [
   'wss://nostr.swiss-enigma.ch',
 ]
 
-const DEFAULT_RELAYS = [...(isDevMode() ? developmentRelays : publicRelays)]
+const DEFAULT_RELAYS = [...(isDevMode() ? developmentRelays : []), ...publicRelays]
 
 export const defaultRelays = () => DEFAULT_RELAYS
