@@ -1,0 +1,20 @@
+body {
+  --board-color: #886f46;
+  --cg-width: 368px;
+  --cg-height: 368px;
+}
+
+.lichess-pgn-viewser-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+  gap: 2em;
+}
+
+.lichess-pgn-viewser-container > div {
+  max-width: 600px;
+}
+
+.lichess-pgn-viewser-container .lpv__side {
+  overflow: scroll;
+  max-height: calc(var(--cg-height) + 128px);
+}

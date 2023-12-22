@@ -32,4 +32,5 @@ The project is licensed under the MIT License. See [LICENSE](LICENSE) for detail
 - daisyui: https://github.com/daisyui/react-daisyui
 - heroicons: https://heroicons.com/
 - react-router: https://reactrouter.com/
+- pgn-viewer: https://github.com/lichess-org/pgn-viewer
 

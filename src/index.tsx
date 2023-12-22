@@ -1,10 +1,11 @@
 import ReactDOM from 'react-dom/client'
 import { SettingsProvider } from './contexts/SettingsContext'
-import App from './App'
-import './index.css'
 import { NDKProvider } from '@nostr-dev-kit/ndk-react'
 import { isDevMode } from './utils/dev'
 import { defaultRelays } from './utils/app_nostr'
+import App from './App'
+
+import './index.css'
 
 declare global {
   interface AppGlobal {
