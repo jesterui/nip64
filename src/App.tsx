@@ -18,6 +18,7 @@ import { useSettings } from './contexts/SettingsContext'
 import ROUTES from './routes'
 import './App.css'
 import SearchPage from './pages/SearchPage'
+import ResourcesPage from './pages/ResourcesPage'
 
 const projectVersion = process.env.REACT_APP_VERSION || '0.1.0-dev'
 
@@ -57,6 +58,7 @@ function App() {
         >
           <Route id="index" path={ROUTES.index} index element={<IndexPage />} />
           <Route id="search" path={ROUTES.search} element={<SearchPage />} />
+          <Route id="resources" path={ROUTES.resources} element={<ResourcesPage />} />
           <Route id="settings" path={ROUTES.settings} element={<SettingsPage />} />
           <Route
             id="about"

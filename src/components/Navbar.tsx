@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react'
 import { Link, NavLink, To } from 'react-router-dom'
-import { WrenchScrewdriverIcon, InformationCircleIcon, GlobeAltIcon } from '@heroicons/react/24/outline'
+import { InformationCircleIcon, GlobeAltIcon } from '@heroicons/react/24/outline'
 import { Navbar as DaisyNavbar, Button, Menu } from 'react-daisyui'
 import ROUTES from '../routes'
 
@@ -75,15 +75,9 @@ export function Navbar({ title, toggleSidebar }: NavbarProps) {
                 </NavLink>
               </Menu.Item>
               <Menu.Item className="rounded-lg">
-                <NavLink to={ROUTES.settings}>
-                  <WrenchScrewdriverIcon className="w-6 h-6" />
-                  Settings
-                </NavLink>
-              </Menu.Item>
-              <Menu.Item className="rounded-lg">
-                <NavLink to={ROUTES.about}>
+                <NavLink to={ROUTES.resources}>
                   <InformationCircleIcon className="w-6 h-6" />
-                  About
+                  Resources
                 </NavLink>
               </Menu.Item>
             </Menu>

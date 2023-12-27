@@ -12,12 +12,20 @@ export function Footer() {
           <Link className="link link-hover" to={ROUTES.index}>
             Index
           </Link>
-          <Link className="link link-hover" to={ROUTES.settings}>
-            Settings
+
+          <Link className="link link-hover" to={ROUTES.search}>
+            Search
+          </Link>
+
+          <Link className="link link-hover" to={ROUTES.resources}>
+            Resources
           </Link>
         </div>
         <div>
-          <DaisyFooter.Title>Company</DaisyFooter.Title>
+          <DaisyFooter.Title>App</DaisyFooter.Title>
+          <Link className="link link-hover" to={ROUTES.settings}>
+            Settings
+          </Link>
           <Link className="link link-hover" to={ROUTES.about}>
             About
           </Link>

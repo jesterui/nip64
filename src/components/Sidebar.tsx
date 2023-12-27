@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
-import { HomeIcon, WrenchScrewdriverIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
+import { HomeIcon, WrenchScrewdriverIcon, GlobeAltIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
 import { Menu } from 'react-daisyui'
 import ROUTES from '../routes'
 
@@ -20,15 +20,21 @@ export function Sidebar({ title, children }: PropsWithChildren<SidebarProps>) {
           </NavLink>
         </Menu.Item>
         <Menu.Item>
-          <NavLink to={ROUTES.settings}>
-            <WrenchScrewdriverIcon className="w-6 h-6" />
-            Settings
+          <NavLink to={ROUTES.search}>
+            <GlobeAltIcon className="w-6 h-6" />
+            Search
           </NavLink>
         </Menu.Item>
         <Menu.Item>
-          <NavLink to={ROUTES.about}>
+          <NavLink to={ROUTES.resources}>
             <InformationCircleIcon className="w-6 h-6" />
-            About
+            Resources
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item>
+          <NavLink to={ROUTES.settings}>
+            <WrenchScrewdriverIcon className="w-6 h-6" />
+            Settings
           </NavLink>
         </Menu.Item>
       </Menu>

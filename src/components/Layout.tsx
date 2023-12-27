@@ -17,6 +17,7 @@ export function Layout({ title, children, drawer }: PropsWithChildren<LayoutProp
     <Drawer
       {...drawer}
       side={<Sidebar title={title} />}
+      sideClassName="z-50"
       end={false}
       open={sidebarVisible}
       onClickOverlay={toggleSidebarVisible}
