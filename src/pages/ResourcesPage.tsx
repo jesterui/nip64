@@ -50,6 +50,12 @@ export default function ResourcesPage() {
             check/checkmate/stalemate detection.
           </li>
           <li>
+            <a className="link " href="https://github.com/mliebelt/pgn-parser">
+              mliebelt / pgn-parser (GitHub)
+            </a>
+            : Javascript library to allow reading of a PGN.
+          </li>
+          <li>
             <a className="link " href="https://github.com/lichess-org/chessground">
               lichess-org / chessground (GitHub)
             </a>
