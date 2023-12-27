@@ -19,6 +19,7 @@ import ROUTES from './routes'
 import './App.css'
 import SearchPage from './pages/SearchPage'
 import ResourcesPage from './pages/ResourcesPage'
+import ValidatePage from './pages/ValidatePage'
 
 const projectVersion = process.env.REACT_APP_VERSION || '0.1.0-dev'
 
@@ -60,6 +61,8 @@ function App() {
           <Route id="search" path={ROUTES.search} element={<SearchPage />} />
           <Route id="resources" path={ROUTES.resources} element={<ResourcesPage />} />
           <Route id="settings" path={ROUTES.settings} element={<SettingsPage />} />
+          <Route id="validate" path={ROUTES.validate} element={<ValidatePage />} />
+
           <Route
             id="about"
             path={ROUTES.about}

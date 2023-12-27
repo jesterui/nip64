@@ -3,8 +3,9 @@ import { Input, Button, Form, InputProps, Table, Badge } from 'react-daisyui'
 import { NostrEvent } from '@nostr-dev-kit/ndk'
 import { useNDK } from '@nostr-dev-kit/ndk-react'
 import { parsePgn } from 'chessops/pgn'
-import { EXAMPLE_KIND_1_EVENT_ID, EXAMPLE_KIND_30_EVENT, NIP64_KIND } from '../utils/examples'
 import classNames from 'classnames'
+import { EXAMPLE_KIND_1_EVENT_ID, EXAMPLE_KIND_30_EVENT, NIP64_KIND } from '../utils/examples'
+import { validatePgn } from '../utils/pgn'
 
 type SearchFromProps = {
   value: string
@@ -73,7 +74,7 @@ export default function SearchPage() {
     return Array.from(parsedPgn![0].moves.mainline())
   }, [parsedPgn])
 
-  const isPgnValid = useMemo(() => (parsedPgn?.length ?? 0) === 1, [parsedPgn])
+  const isPgnValid = useMemo(() => !!pgnString && validatePgn(pgnString), [pgnString])
 
   const search = async (value: string) => {
     setSearchResult(undefined)
@@ -103,7 +104,7 @@ export default function SearchPage() {
   }
 
   return (
-    <div className="screen-search">
+    <>
       <div className="flex justify-center items-center">
         <div className="w-full grid grid-cols-1 lg:w-8/12">
           <>
@@ -223,6 +224,6 @@ export default function SearchPage() {
           </>
         </div>
       </div>
-    </div>
+    </>
   )
 }

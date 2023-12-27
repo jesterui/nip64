@@ -1,6 +1,12 @@
 import { PropsWithChildren, ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
-import { HomeIcon, WrenchScrewdriverIcon, GlobeAltIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
+import {
+  HomeIcon,
+  WrenchScrewdriverIcon,
+  GlobeAltIcon,
+  InformationCircleIcon,
+  DocumentCheckIcon,
+} from '@heroicons/react/24/outline'
 import { Menu } from 'react-daisyui'
 import ROUTES from '../routes'
 
@@ -17,6 +23,12 @@ export function Sidebar({ title, children }: PropsWithChildren<SidebarProps>) {
           <NavLink to={ROUTES.index}>
             <HomeIcon className="w-6 h-6" />
             Index
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item>
+          <NavLink to={ROUTES.validate}>
+            <DocumentCheckIcon className="w-6 h-6" />
+            Validate
           </NavLink>
         </Menu.Item>
         <Menu.Item>

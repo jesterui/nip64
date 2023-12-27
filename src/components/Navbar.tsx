@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react'
 import { Link, NavLink, To } from 'react-router-dom'
-import { InformationCircleIcon, GlobeAltIcon } from '@heroicons/react/24/outline'
+import { InformationCircleIcon, GlobeAltIcon, DocumentCheckIcon } from '@heroicons/react/24/outline'
 import { Navbar as DaisyNavbar, Button, Menu } from 'react-daisyui'
 import ROUTES from '../routes'
 
@@ -68,6 +68,12 @@ export function Navbar({ title, toggleSidebar }: NavbarProps) {
         <DaisyNavbar.End>
           <div className="flex-none hidden md:block">
             <Menu horizontal={true} className="gap-2">
+              <Menu.Item>
+                <NavLink to={ROUTES.validate}>
+                  <DocumentCheckIcon className="w-6 h-6" />
+                  Validate
+                </NavLink>
+              </Menu.Item>
               <Menu.Item className="rounded-lg">
                 <NavLink to={ROUTES.search}>
                   <GlobeAltIcon className="w-6 h-6" />

@@ -13,6 +13,10 @@ export function Footer() {
             Index
           </Link>
 
+          <Link className="link link-hover" to={ROUTES.validate}>
+            Validate
+          </Link>
+
           <Link className="link link-hover" to={ROUTES.search}>
             Search
           </Link>

@@ -3,6 +3,7 @@ const ROUTES = {
   search: '/search',
   settings: '/settings',
   resources: '/resources',
+  validate: '/validate',
   about: '/about',
   '*': '/',
 }
