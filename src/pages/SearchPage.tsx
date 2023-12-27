@@ -64,8 +64,14 @@ export default function SearchPage() {
 
   const parsedPgn = useMemo(() => {
     if (!pgnString) return null
-    return parsePgn(pgnString)
+    const parsed = parsePgn(pgnString)
+    return parsed
   }, [pgnString])
+
+  const ply = useMemo(() => {
+    if (!parsedPgn || parsedPgn.length !== 1) return null
+    return Array.from(parsedPgn![0].moves.mainline())
+  }, [parsedPgn])
 
   const isPgnValid = useMemo(() => (parsedPgn?.length ?? 0) === 1, [parsedPgn])
 
@@ -156,7 +162,7 @@ export default function SearchPage() {
                           ) : (
                             <>
                               <Badge variant="outline" color="error">
-                                This is *not* a NIP-64 Even
+                                This is&nbsp;<strong>not</strong>&nbsp;a NIP-64 Event
                               </Badge>
                             </>
                           )}
@@ -190,14 +196,14 @@ export default function SearchPage() {
                       </Table.Row>
 
                       <Table.Row>
-                        <span>Moves</span>
+                        <span>PlyCount</span>
                         <span
                           className={classNames({
-                            'text-success': isPgnValid && parsedPgn![0].moves.children.length,
-                            'text-error': parsedPgn === null,
+                            'text-success': isPgnValid && ply,
+                            'text-error': !isPgnValid || !ply,
                           })}
                         >
-                          {isPgnValid ? parsedPgn![0].moves.children.length : '-'}
+                          {isPgnValid && ply ? ply.length : '-'}
                         </span>
                         <span></span>
                       </Table.Row>
