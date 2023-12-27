@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Input, Button, Form, InputProps, Table, Badge } from 'react-daisyui'
-import { NDKFilter, NostrEvent } from '@nostr-dev-kit/ndk'
+import { NostrEvent } from '@nostr-dev-kit/ndk'
 import { useNDK } from '@nostr-dev-kit/ndk-react'
 import { parsePgn } from 'chessops/pgn'
 import { EXAMPLE_KIND_1_EVENT_ID, EXAMPLE_KIND_30_EVENT, NIP64_KIND } from '../utils/examples'
