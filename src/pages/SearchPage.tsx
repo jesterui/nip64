@@ -1,11 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Input, Button, Form, InputProps, Table, Badge } from 'react-daisyui'
 import { NostrEvent } from '@nostr-dev-kit/ndk'
 import { useNDK } from '@nostr-dev-kit/ndk-react'
-import { parsePgn } from 'chessops/pgn'
+import { ParseTree } from '@mliebelt/pgn-parser'
 import classNames from 'classnames'
+
 import { EXAMPLE_KIND_1_EVENT_ID, EXAMPLE_KIND_30_EVENT, NIP64_KIND } from '../utils/examples'
-import { validatePgn } from '../utils/pgn'
+import { validatePgn, parsePgn } from '../utils/pgn'
 
 type SearchFromProps = {
   value: string
@@ -63,16 +64,36 @@ export default function SearchPage() {
     }
   }, [searchResult])
 
-  const parsedPgn = useMemo(() => {
-    if (!pgnString) return null
-    const parsed = parsePgn(pgnString)
-    return parsed
+  const [pgnParseResult, setPgnParseResult] = useState<ParseTree>()
+  const [pgnParseError, setPgnParseError] = useState<any>()
+
+  useEffect(() => {
+    setPgnParseResult(undefined)
+    setPgnParseError(undefined)
+
+    if (!pgnString) return
+
+    const abortCtrl = new AbortController()
+    parsePgn(pgnString)
+      .then((val) => {
+        if (abortCtrl.signal.aborted) return
+        setPgnParseResult(val)
+        setPgnParseError(undefined)
+      })
+      .catch((e) => {
+        if (abortCtrl.signal.aborted) return
+        setPgnParseResult(undefined)
+        setPgnParseError(e)
+      })
+
+    return () => abortCtrl.abort()
   }, [pgnString])
 
-  const ply = useMemo(() => {
-    if (!parsedPgn || parsedPgn.length !== 1) return null
-    return Array.from(parsedPgn![0].moves.mainline())
-  }, [parsedPgn])
+  const moveNumber = useMemo(() => {
+    if (!pgnParseResult || pgnParseResult.moves.length === 0) return 0
+    const move = pgnParseResult.moves.reduce((a, b) => (a.moveNumber > b.moveNumber ? a : b))
+    return move.moveNumber || 0
+  }, [pgnParseResult])
 
   const isPgnValid = useMemo(() => !!pgnString && validatePgn(pgnString), [pgnString])
 
@@ -197,14 +218,14 @@ export default function SearchPage() {
                       </Table.Row>
 
                       <Table.Row>
-                        <span>PlyCount</span>
+                        <span>Move #</span>
                         <span
                           className={classNames({
-                            'text-success': isPgnValid && ply,
-                            'text-error': !isPgnValid || !ply,
+                            'text-success': isPgnValid,
+                            'text-error': !isPgnValid,
                           })}
                         >
-                          {isPgnValid && ply ? ply.length : '-'}
+                          {isPgnValid && moveNumber > 0 ? moveNumber : '-'}
                         </span>
                         <span></span>
                       </Table.Row>

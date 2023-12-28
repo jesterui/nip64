@@ -1,6 +1,8 @@
 import { PropsWithChildren, useEffect, useMemo, useState } from 'react'
 import { Alert, AlertProps, Button, Form, InputProps, Textarea } from 'react-daisyui'
-import { validatePgn } from '../utils/pgn'
+import { validatePgn, parsePgn } from '../utils/pgn'
+import { ParseTree } from '@mliebelt/pgn-parser'
+import { EXAMPLE_KIND_30_PGN } from '../utils/examples'
 
 type PgnFormProps = {
   value: string
@@ -34,7 +36,7 @@ const PgnForm = (props: PgnFormProps) => {
           />
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex gap-2 justify-center">
           <Button type="submit" size="lg">
             Validate
           </Button>
@@ -47,6 +49,7 @@ const PgnForm = (props: PgnFormProps) => {
 export default function ValidatePage() {
   const [pgnInputValue, setPgnInputValue] = useState('')
   const [validationAlert, setValidationAlert] = useState<PropsWithChildren<AlertProps>>()
+  const [pgnParseResult, setPgnParseResult] = useState<ParseTree>()
 
   const isPgnValid = useMemo(() => {
     if (!pgnInputValue) return false
@@ -55,19 +58,45 @@ export default function ValidatePage() {
   }, [pgnInputValue])
 
   useEffect(() => {
+    const abortCtrl = new AbortController()
+    setPgnParseResult(undefined)
+
+    parsePgn(pgnInputValue)
+      .then((val) => {
+        if (abortCtrl.signal.aborted) return
+        setPgnParseResult(val)
+      })
+      .catch((e) => {
+        if (abortCtrl.signal.aborted) return
+        setPgnParseResult(undefined)
+      })
+    return () => abortCtrl.abort()
+  }, [pgnInputValue])
+
+  useEffect(() => {
     setValidationAlert(undefined)
   }, [pgnInputValue])
 
   const validate = async (value: string) => {
-    if (validatePgn(value)) {
+    try {
+      const _ = await parsePgn(value)
       setValidationAlert({
         status: 'success',
-        children: <>PGN is valid</>,
+        children: (
+          <div className="flex flex-col">
+            <div className="font-bold">PGN is valid</div>
+          </div>
+        ),
       })
-    } else {
+    } catch (e: any) {
       setValidationAlert({
         status: 'error',
-        children: <>PGN is *not* valid</>,
+        children: (
+          <div className="flex flex-col">
+            <div className="font-bold">PGN is *not* valid</div>
+            <div>{e?.message || 'Unknown parse error'}</div>
+          </div>
+        ),
       })
     }
   }
@@ -76,8 +105,23 @@ export default function ValidatePage() {
     <>
       <div className="flex flex-col gap-4 mb-4">
         <h2 className="text-3xl font-bold tracking-tighter">Validate PGN</h2>
+        <div className="text-lg text-slate-500 break-all">
+          Check validity of PGN format (not compliance of chess rules).
+        </div>
 
-        <div className="flex flex-col gap-4 mb-4">
+        <div className="flex gap-4">
+          <Button type="button" size="sm" onClick={() => setPgnInputValue(EXAMPLE_KIND_30_PGN)}>
+            Example PGN 1
+          </Button>
+        </div>
+
+        {validationAlert && (
+          <>
+            <Alert {...validationAlert} />
+          </>
+        )}
+
+        <div className="flex flex-col gap-4">
           <PgnForm
             value={pgnInputValue}
             onChange={setPgnInputValue}
@@ -86,11 +130,7 @@ export default function ValidatePage() {
             error={!!pgnInputValue && !isPgnValid}
           />
 
-          {validationAlert && (
-            <>
-              <Alert {...validationAlert} />
-            </>
-          )}
+          {pgnParseResult && <pre>{JSON.stringify(pgnParseResult, null, 2)}</pre>}
         </div>
       </div>
     </>

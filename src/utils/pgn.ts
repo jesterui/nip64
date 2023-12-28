@@ -1,13 +1,19 @@
-import { Chess } from 'chess.js'
+import { parseGame, ParseTree } from '@mliebelt/pgn-parser'
 
-const VALIDATION_CHESS = new Chess()
+export const parsePgn = (pgn: string): Promise<ParseTree> => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(parseGame(pgn))
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
 
 export const validatePgn = (pgn: string) => {
-  if (!pgn || pgn.trim().length === 0) return false
-
   try {
-    VALIDATION_CHESS.loadPgn(pgn, { strict: true })
-    return true
+    const parsed = parseGame(pgn)
+    return !!parsed
   } catch (e) {
     return false
   }

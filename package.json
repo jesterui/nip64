@@ -54,9 +54,9 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
+    "@mliebelt/pgn-parser": "^1.4.13",
     "@nostr-dev-kit/ndk": "^2.3.1",
     "@nostr-dev-kit/ndk-react": "^0.1.1",
-    "chess.js": "^1.0.0-beta.7",
     "chessops": "^0.13.0",
     "classnames": "^2.4.0",
     "lichess-pgn-viewer": "^2.0.1",
