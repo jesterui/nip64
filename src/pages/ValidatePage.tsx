@@ -3,6 +3,7 @@ import { Alert, AlertProps, Button, Form, InputProps, Textarea } from 'react-dai
 import { validatePgn, parsePgn } from '../utils/pgn'
 import { ParseTree } from '@mliebelt/pgn-parser'
 import { EXAMPLE_KIND_30_PGN } from '../utils/examples'
+import { PgnViewer } from '../components/PgnViewer'
 
 type PgnFormProps = {
   value: string
@@ -79,12 +80,12 @@ export default function ValidatePage() {
 
   const validate = async (value: string) => {
     try {
-      const _ = await parsePgn(value)
+      await parsePgn(value)
       setValidationAlert({
         status: 'success',
         children: (
           <div className="flex flex-col">
-            <div className="font-bold">PGN is valid</div>
+            <div className="font-bold">PGN is valid.</div>
           </div>
         ),
       })
@@ -93,8 +94,8 @@ export default function ValidatePage() {
         status: 'error',
         children: (
           <div className="flex flex-col">
-            <div className="font-bold">PGN is *not* valid</div>
-            <div>{e?.message || 'Unknown parse error'}</div>
+            <div className="font-bold">PGN is *not* valid.</div>
+            <div>{e?.message || 'Unknown parse error.'}</div>
           </div>
         ),
       })
@@ -130,7 +131,13 @@ export default function ValidatePage() {
             error={!!pgnInputValue && !isPgnValid}
           />
 
-          {pgnParseResult && <pre>{JSON.stringify(pgnParseResult, null, 2)}</pre>}
+          {pgnParseResult && (
+            <>
+              <PgnViewer pgn={pgnInputValue} />
+
+              <pre>{JSON.stringify(pgnParseResult, null, 2)}</pre>
+            </>
+          )}
         </div>
       </div>
     </>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Input, Button, Form, InputProps, Table, Badge } from 'react-daisyui'
+import { Input, Button, Form, InputProps, Table, Badge, Loading, Alert } from 'react-daisyui'
 import { NostrEvent } from '@nostr-dev-kit/ndk'
 import { useNDK } from '@nostr-dev-kit/ndk-react'
 import { ParseTree } from '@mliebelt/pgn-parser'
@@ -53,8 +53,9 @@ export default function SearchPage() {
   const { ndk } = useNDK()
 
   const [searchInputValue, setSearchInputValue] = useState('')
-  const [searchResult, setSearchResult] = useState<NostrEvent>()
   const [isSearching, setIsSearching] = useState(false)
+  const [searchedForCurrentInputValue, setSearchedForCurrentInputValue] = useState(false)
+  const [searchResult, setSearchResult] = useState<NostrEvent>()
 
   const pgnString = useMemo(() => {
     try {
@@ -66,6 +67,12 @@ export default function SearchPage() {
 
   const [pgnParseResult, setPgnParseResult] = useState<ParseTree>()
   const [pgnParseError, setPgnParseError] = useState<any>()
+
+  const isPgnValid = useMemo(() => !!pgnString && validatePgn(pgnString), [pgnString])
+
+  useEffect(() => {
+    setSearchedForCurrentInputValue(false)
+  }, [searchInputValue])
 
   useEffect(() => {
     setPgnParseResult(undefined)
@@ -95,22 +102,26 @@ export default function SearchPage() {
     return move.moveNumber || 0
   }, [pgnParseResult])
 
-  const isPgnValid = useMemo(() => !!pgnString && validatePgn(pgnString), [pgnString])
-
   const search = async (value: string) => {
+    setIsSearching(false)
     setSearchResult(undefined)
-    if (!value) return
 
-    setIsSearching(true)
-    try {
-      const event = await ndk?.fetchEvent(value, {
-        subId: 's',
-        closeOnEose: true,
-      })
-      setSearchResult(event?.rawEvent() ?? undefined)
-      setIsSearching(false)
-    } catch (e) {
-      setIsSearching(false)
+    if (!value) {
+      setSearchedForCurrentInputValue(true)
+    } else {
+      setIsSearching(true)
+      try {
+        const event = await ndk?.fetchEvent(value, {
+          subId: 's',
+          closeOnEose: true,
+        })
+        setSearchResult(event?.rawEvent() ?? undefined)
+        setIsSearching(false)
+      } catch (e) {
+        setIsSearching(false)
+      } finally {
+        setSearchedForCurrentInputValue(true)
+      }
     }
   }
 
@@ -129,42 +140,57 @@ export default function SearchPage() {
       <div className="flex justify-center items-center">
         <div className="w-full grid grid-cols-1 lg:w-8/12">
           <>
-            <div className="w-full mt-16 grid grid-cols-1">
+            <div className="w-full mt-16 grid grid-cols-1 gap-2">
               <div className="flex justify-center">
                 <h2 className="text-3xl font-bold tracking-tighter">Search</h2>
               </div>
 
-              <div className="my-1">
-                <small>Search for NIP-64 events.</small>
+              <div>
+                <div className="my-1">
+                  <small>Search for NIP-64 events.</small>
+                </div>
+
+                <SearchFrom
+                  value={searchInputValue}
+                  onChange={setSearchInputValue}
+                  onSubmit={() => search(searchInputValue)}
+                />
+
+                <div className="flex gap-1">
+                  <Button
+                    type="button"
+                    size="sm"
+                    onClick={() => {
+                      //applyExampleSearch(EXAMPLE_KIND_30_EVENT_ID)
+                      applyExampleEvent()
+                    }}
+                  >
+                    Example (NIP-64)
+                  </Button>
+                  <Button type="button" size="sm" onClick={() => applyExampleSearch(EXAMPLE_KIND_1_EVENT_ID)}>
+                    Example (non NIP-64)
+                  </Button>
+                </div>
               </div>
 
-              <SearchFrom
-                value={searchInputValue}
-                onChange={setSearchInputValue}
-                onSubmit={() => search(searchInputValue)}
-              />
-
-              <div className="flex gap-1">
-                <Button
-                  type="button"
-                  size="sm"
-                  onClick={() => {
-                    //applyExampleSearch(EXAMPLE_KIND_30_EVENT_ID)
-                    applyExampleEvent()
-                  }}
-                >
-                  Example (NIP-64)
-                </Button>
-                <Button type="button" size="sm" onClick={() => applyExampleSearch(EXAMPLE_KIND_1_EVENT_ID)}>
-                  Example (non NIP-64)
-                </Button>
+              <div className="my-4">
+                {isSearching && (
+                  <Alert>
+                    <Loading />
+                  </Alert>
+                )}
+                {searchedForCurrentInputValue && !isSearching && !searchResult && (
+                  <>
+                    <Alert>No results found.</Alert>
+                  </>
+                )}
               </div>
 
               {searchResult && (
                 <div className="flex flex-col gap-4">
-                  <Table>
+                  <Table className="bg-base-200 rounded-lg" size="lg" zebra>
                     <Table.Body>
-                      <Table.Row>
+                      <Table.Row hover>
                         <span>Kind</span>
                         <span
                           className={classNames({
@@ -190,7 +216,7 @@ export default function SearchPage() {
                           )}
                         </span>
                       </Table.Row>
-                      <Table.Row>
+                      <Table.Row hover>
                         <span>PGN</span>
                         <span
                           className={classNames({
@@ -204,20 +230,20 @@ export default function SearchPage() {
                           {isPgnValid ? (
                             <>
                               <Badge variant="outline" color="success">
-                                Valid PGN
+                                Valid
                               </Badge>
                             </>
                           ) : (
                             <>
                               <Badge variant="outline" color="error">
-                                Invalid PGN
+                                Invalid
                               </Badge>
                             </>
                           )}
                         </span>
                       </Table.Row>
 
-                      <Table.Row>
+                      <Table.Row hover>
                         <span>Move #</span>
                         <span
                           className={classNames({
@@ -232,15 +258,30 @@ export default function SearchPage() {
                     </Table.Body>
                   </Table>
 
-                  <pre>{pgnString}</pre>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-2xl font-bold tracking-tighter">PGN</h3>
+                    {pgnParseError && <Alert status="error">{pgnParseError?.message || 'Unknown error.'}</Alert>}
+                    <div className="bg-base-200 rounded-lg p-4 overflow-x-auto">
+                      {pgnString ? (
+                        <>
+                          <pre>{pgnString}</pre>
+                        </>
+                      ) : (
+                        <div>Not present.</div>
+                      )}
+                    </div>
+                  </div>
 
-                  <div className="">
-                    <pre>{JSON.stringify((({ sig, ...rest }: any) => rest)(searchResult || {}), null, 2)}</pre>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-2xl font-bold tracking-tighter">Event</h3>
+                    <div className="bg-base-200 rounded-lg p-4 overflow-x-auto">
+                      <pre className="bg-base-200">
+                        {JSON.stringify((({ sig, ...rest }: any) => rest)(searchResult || {}), null, 2)}
+                      </pre>
+                    </div>
                   </div>
                 </div>
               )}
-
-              <div className="pb-2 grow my-4">{!isSearching && !searchResult && <>No results found.</>}</div>
             </div>
           </>
         </div>
