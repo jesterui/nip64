@@ -17,7 +17,7 @@ export function IndexPage() {
         <h3 className="text-2xl font-bold tracking-tighter">Basic event</h3>
         <div className="overflow-auto">
           <Textarea
-            className="w-full font-mono"
+            className="w-full bg-base-200 font-mono"
             rows={BASIC_EXAMPLE_JSON_ROWS}
             value={BASIC_EXAMPLE_JSON}
             readOnly
@@ -37,7 +37,7 @@ export function IndexPage() {
               <code className="font-mono">`content.pgn`</code>
             </h4>
 
-            <Textarea className="w-full h-full font-mono" value={EXAMPLE_CONTENT.pgn} readOnly></Textarea>
+            <Textarea className="w-full h-full bg-base-200 font-mono" value={EXAMPLE_CONTENT.pgn} readOnly></Textarea>
           </div>
         </div>
       </div>

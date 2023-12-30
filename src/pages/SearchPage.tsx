@@ -7,6 +7,7 @@ import classNames from 'classnames'
 
 import { EXAMPLE_KIND_1_EVENT_ID, EXAMPLE_KIND_30_EVENT, NIP64_KIND } from '../utils/examples'
 import { validatePgn, parsePgn } from '../utils/pgn'
+import { PgnViewer } from '../components/PgnViewer'
 
 type SearchFromProps = {
   value: string
@@ -32,6 +33,7 @@ const SearchFrom = (props: SearchFromProps) => {
           <Input
             type="text"
             size="lg"
+            className="bg-base-200"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
             placeholder="NIP-64 event id"
@@ -185,6 +187,13 @@ export default function SearchPage() {
                   </>
                 )}
               </div>
+
+              {pgnParseResult && pgnString && (
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-2xl font-bold tracking-tighter">PGN viewer</h3>
+                  <PgnViewer pgn={pgnString} />
+                </div>
+              )}
 
               {searchResult && (
                 <div className="flex flex-col gap-4">

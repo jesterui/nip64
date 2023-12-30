@@ -29,7 +29,7 @@ const PgnForm = (props: PgnFormProps) => {
           <Textarea
             size="lg"
             rows={10}
-            className="font-mono"
+            className="bg-base-200 font-mono"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
             placeholder="Paste PGN here"
@@ -132,11 +132,19 @@ export default function ValidatePage() {
           />
 
           {pgnParseResult && (
-            <>
+            <div className="flex flex-col gap-2">
+              <h3 className="text-2xl font-bold tracking-tighter">PGN viewer</h3>
               <PgnViewer pgn={pgnInputValue} />
+            </div>
+          )}
 
-              <pre>{JSON.stringify(pgnParseResult, null, 2)}</pre>
-            </>
+          {pgnParseResult && (
+            <div className="flex flex-col gap-2">
+              <h3 className="text-2xl font-bold tracking-tighter">Parse result</h3>
+              <div className="bg-base-200 rounded-lg p-4 overflow-x-auto">
+                <pre className="bg-base-200">{JSON.stringify(pgnParseResult, null, 2)}</pre>
+              </div>
+            </div>
           )}
         </div>
       </div>
