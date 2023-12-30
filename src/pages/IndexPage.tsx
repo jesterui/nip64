@@ -3,7 +3,6 @@ import { BASIC_KIND_30_EVENT, EXAMPLE_KIND_30_EVENT } from '../utils/examples'
 import { PgnViewer } from '../components/PgnViewer'
 
 const EXAMPLE_EVENT = EXAMPLE_KIND_30_EVENT
-const EXAMPLE_CONTENT = JSON.parse(EXAMPLE_EVENT.content)
 
 const BASIC_EXAMPLE_JSON = JSON.stringify(BASIC_KIND_30_EVENT, null, 2)
 const BASIC_EXAMPLE_JSON_ROWS = BASIC_EXAMPLE_JSON.split(`\n`).length + 1
@@ -30,14 +29,14 @@ export function IndexPage() {
         <div className="flex flex-col xl:flex-row gap-4 mb-4">
           <div className="flex flex-col gap-2">
             <h4 className="text-xl font-bold tracking-tighter">PGN viewer</h4>
-            <PgnViewer pgn={EXAMPLE_CONTENT.pgn} />
+            <PgnViewer pgn={EXAMPLE_EVENT.content} />
           </div>
           <div className="flex flex-col grow gap-2 overflow-auto">
             <h4 className="text-xl font-bold tracking-tighter">
-              <code className="font-mono">`content.pgn`</code>
+              <code className="font-mono">`content`</code>
             </h4>
 
-            <Textarea className="w-full h-full bg-base-200 font-mono" value={EXAMPLE_CONTENT.pgn} readOnly></Textarea>
+            <Textarea className="w-full h-full bg-base-200 font-mono" value={EXAMPLE_EVENT.content} readOnly></Textarea>
           </div>
         </div>
       </div>

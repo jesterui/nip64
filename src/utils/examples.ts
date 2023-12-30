@@ -10,19 +10,17 @@ export const BASIC_KIND_30_EVENT: NostrEvent = {
   id: '<32-bytes lowercase hex-encoded sha256 of the serialized event data>',
   pubkey: '<32-bytes lowercase hex-encoded public key of the event creator>',
   created_at: Math.floor(Date.now() / 1_000),
-  kind: 30,
+  kind: NIP64_KIND,
   tags: [],
-  content: JSON.stringify({
-    pgn: `[Event "?"]
+  content: `[Event "?"]
 [Site "?"]
 [Date "????.??.??"]
 [Round "?"]
-[White "\${pubkey}"]
-[Black "\${opponentPubKey} or ?"]
+[White "?"]
+[Black "?"]
 [Result "*"]
 
 *`,
-  }),
   sig: '<64-bytes lowercase hex of the signature of the sha256 hash of the serialized event data, which is the same as the "id" field>',
 }
 
@@ -45,11 +43,9 @@ Nf2 42. g4 Bd3 43. Re6 1/2-1/2`
 
 export const EXAMPLE_KIND_30_EVENT: NostrEvent = {
   created_at: 1,
-  content: JSON.stringify({
-    pgn: EXAMPLE_KIND_30_PGN,
-  }),
+  content: EXAMPLE_KIND_30_PGN,
   tags: [],
-  kind: 30,
+  kind: NIP64_KIND,
   pubkey: '',
   id: '',
   sig: '',

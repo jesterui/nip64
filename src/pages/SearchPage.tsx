@@ -60,11 +60,7 @@ export default function SearchPage() {
   const [searchResult, setSearchResult] = useState<NostrEvent>()
 
   const pgnString = useMemo(() => {
-    try {
-      return (JSON.parse(searchResult?.content || JSON.stringify({})).pgn as string) || null
-    } catch (e) {
-      return null
-    }
+    return searchResult?.kind === NIP64_KIND ? searchResult?.content : undefined
   }, [searchResult])
 
   const [pgnParseResult, setPgnParseResult] = useState<ParseTree>()
@@ -188,13 +184,6 @@ export default function SearchPage() {
                 )}
               </div>
 
-              {pgnParseResult && pgnString && (
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-2xl font-bold tracking-tighter">PGN viewer</h3>
-                  <PgnViewer pgn={pgnString} />
-                </div>
-              )}
-
               {searchResult && (
                 <div className="flex flex-col gap-4">
                   <Table className="bg-base-200 rounded-lg" size="lg" zebra>
@@ -266,6 +255,13 @@ export default function SearchPage() {
                       </Table.Row>
                     </Table.Body>
                   </Table>
+
+                  {pgnParseResult && pgnString && (
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-2xl font-bold tracking-tighter">PGN viewer</h3>
+                      <PgnViewer pgn={pgnString} />
+                    </div>
+                  )}
 
                   <div className="flex flex-col gap-2">
                     <h3 className="text-2xl font-bold tracking-tighter">PGN</h3>
