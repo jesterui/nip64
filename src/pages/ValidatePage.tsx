@@ -1,7 +1,7 @@
 import { PropsWithChildren, useEffect, useMemo, useState } from 'react'
 import { Alert, AlertProps, Button, Form, InputProps, Textarea } from 'react-daisyui'
-import { validatePgn, parsePgn } from '../utils/pgn'
-import { ParseTree } from '@mliebelt/pgn-parser'
+import { validatePgn, parsePgn, splitPgn } from '../utils/pgn'
+import { ParseTree, SplitGame } from '@mliebelt/pgn-parser'
 import { EXAMPLE_KIND_30_PGN } from '../utils/examples'
 import { PgnViewer } from '../components/PgnViewer'
 
@@ -50,7 +50,8 @@ const PgnForm = (props: PgnFormProps) => {
 export default function ValidatePage() {
   const [pgnInputValue, setPgnInputValue] = useState('')
   const [validationAlert, setValidationAlert] = useState<PropsWithChildren<AlertProps>>()
-  const [pgnParseResult, setPgnParseResult] = useState<ParseTree>()
+  const [pgnParseResult, setPgnParseResult] = useState<ParseTree[]>()
+  const [pgnSplitResult, setPgnSplitResult] = useState<SplitGame[]>()
 
   const isPgnValid = useMemo(() => {
     if (!pgnInputValue) return false
@@ -62,6 +63,7 @@ export default function ValidatePage() {
     const abortCtrl = new AbortController()
     setPgnParseResult(undefined)
 
+    setPgnSplitResult(splitPgn(pgnInputValue))
     parsePgn(pgnInputValue)
       .then((val) => {
         if (abortCtrl.signal.aborted) return
@@ -131,20 +133,28 @@ export default function ValidatePage() {
             error={!!pgnInputValue && !isPgnValid}
           />
 
-          {pgnParseResult && (
-            <div className="flex flex-col gap-2">
-              <h3 className="text-2xl font-bold tracking-tighter">PGN viewer</h3>
-              <PgnViewer pgn={pgnInputValue} />
-            </div>
-          )}
+          {isPgnValid && (
+            <>
+              {pgnSplitResult && (
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-2xl font-bold tracking-tighter">PGN viewer</h3>
+                  {pgnSplitResult.map((it, index) => (
+                    <div key={index}>
+                      <PgnViewer pgn={it.all} />
+                    </div>
+                  ))}
+                </div>
+              )}
 
-          {pgnParseResult && (
-            <div className="flex flex-col gap-2">
-              <h3 className="text-2xl font-bold tracking-tighter">Parse result</h3>
-              <div className="bg-base-200 rounded-lg p-4 overflow-x-auto">
-                <pre className="bg-base-200">{JSON.stringify(pgnParseResult, null, 2)}</pre>
-              </div>
-            </div>
+              {pgnParseResult && (
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-2xl font-bold tracking-tighter">Parse result</h3>
+                  <div className="bg-base-200 rounded-lg p-4 overflow-x-auto">
+                    <pre className="bg-base-200">{JSON.stringify(pgnParseResult, null, 2)}</pre>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

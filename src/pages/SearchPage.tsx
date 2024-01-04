@@ -63,7 +63,7 @@ export default function SearchPage() {
     return searchResult?.kind === NIP64_KIND ? searchResult?.content : undefined
   }, [searchResult])
 
-  const [pgnParseResult, setPgnParseResult] = useState<ParseTree>()
+  const [pgnParseResult, setPgnParseResult] = useState<ParseTree[]>()
   const [pgnParseError, setPgnParseError] = useState<any>()
 
   const isPgnValid = useMemo(() => !!pgnString && validatePgn(pgnString), [pgnString])
@@ -95,8 +95,9 @@ export default function SearchPage() {
   }, [pgnString])
 
   const moveNumber = useMemo(() => {
-    if (!pgnParseResult || pgnParseResult.moves.length === 0) return 0
-    const move = pgnParseResult.moves.reduce((a, b) => (a.moveNumber > b.moveNumber ? a : b))
+    if (!pgnParseResult || pgnParseResult.length > 0) return 0
+    if (pgnParseResult[0].moves.length === 0) return 0
+    const move = pgnParseResult[0].moves.reduce((a, b) => (a.moveNumber > b.moveNumber ? a : b))
     return move.moveNumber || 0
   }, [pgnParseResult])
 
