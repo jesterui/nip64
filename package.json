@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
-    "@mliebelt/pgn-parser": "^1.4.13",
+    "@mliebelt/pgn-parser": "^1.4.14",
     "@nostr-dev-kit/ndk": "^2.3.2",
     "@nostr-dev-kit/ndk-react": "^0.1.1",
     "chessops": "^0.13.0",

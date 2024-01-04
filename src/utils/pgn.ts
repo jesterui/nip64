@@ -19,8 +19,4 @@ export const validatePgn = (pgn: string) => {
   }
 }
 
-export const splitPgn = (pgn: string): SplitGame[] => {
-  // TODO: workaround for https://github.com/mliebelt/pgn-parser/issues/462 (last checked: 2023-12-30)
-  const normalized = pgn.replaceAll('\n\n\n', '\n\n')
-  return split(normalized)
-}
+export const splitPgn = (pgn: string): SplitGame[] => split(pgn)
