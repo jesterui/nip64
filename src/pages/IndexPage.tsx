@@ -1,10 +1,10 @@
 import { Textarea } from 'react-daisyui'
-import { BASIC_KIND_30_EVENT, EXAMPLE_KIND_30_EVENT } from '../utils/examples'
+import { BASIC_NIP64_EVENT, EXAMPLE_NIP64_EVENT } from '../utils/examples'
 import { PgnViewer } from '../components/PgnViewer'
 
-const EXAMPLE_EVENT = EXAMPLE_KIND_30_EVENT
+const EXAMPLE_EVENT = EXAMPLE_NIP64_EVENT
 
-const BASIC_EXAMPLE_JSON = JSON.stringify(BASIC_KIND_30_EVENT, null, 2)
+const BASIC_EXAMPLE_JSON = JSON.stringify(BASIC_NIP64_EVENT, null, 2)
 const BASIC_EXAMPLE_JSON_ROWS = BASIC_EXAMPLE_JSON.split(`\n`).length + 1
 
 export function IndexPage() {

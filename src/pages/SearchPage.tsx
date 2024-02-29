@@ -5,7 +5,7 @@ import { useNDK } from '@nostr-dev-kit/ndk-react'
 import { ParseTree } from '@mliebelt/pgn-parser'
 import classNames from 'classnames'
 
-import { EXAMPLE_KIND_1_EVENT_ID, EXAMPLE_KIND_30_EVENT, NIP64_KIND } from '../utils/examples'
+import { EXAMPLE_KIND_1_EVENT_ID, EXAMPLE_NIP64_EVENT, NIP64_KIND } from '../utils/examples'
 import { validatePgn, parsePgn } from '../utils/pgn'
 import { PgnViewer } from '../components/PgnViewer'
 
@@ -131,7 +131,7 @@ export default function SearchPage() {
 
   const applyExampleEvent = () => {
     setSearchInputValue('')
-    setSearchResult(EXAMPLE_KIND_30_EVENT)
+    setSearchResult(EXAMPLE_NIP64_EVENT)
   }
 
   return (
@@ -160,7 +160,7 @@ export default function SearchPage() {
                     type="button"
                     size="sm"
                     onClick={() => {
-                      //applyExampleSearch(EXAMPLE_KIND_30_EVENT_ID)
+                      //applyExampleSearch(EXAMPLE_NIP64_EVENT_ID)
                       applyExampleEvent()
                     }}
                   >
