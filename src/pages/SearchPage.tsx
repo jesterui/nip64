@@ -5,7 +5,7 @@ import { useNDK } from '@nostr-dev-kit/ndk-react'
 import { ParseTree } from '@mliebelt/pgn-parser'
 import classNames from 'classnames'
 
-import { EXAMPLE_KIND_1_EVENT_ID, EXAMPLE_NIP64_EVENT, NIP64_KIND } from '../utils/examples'
+import { EXAMPLE_KIND_1_EVENT_ID, EXAMPLE_KIND_64_EVENT_ID, NIP64_KIND } from '../utils/examples'
 import { validatePgn, parsePgn } from '../utils/pgn'
 import { PgnViewer } from '../components/PgnViewer'
 
@@ -129,11 +129,6 @@ export default function SearchPage() {
     search(eventId)
   }
 
-  const applyExampleEvent = () => {
-    setSearchInputValue('')
-    setSearchResult(EXAMPLE_NIP64_EVENT)
-  }
-
   return (
     <>
       <div className="flex justify-center items-center">
@@ -159,10 +154,7 @@ export default function SearchPage() {
                   <Button
                     type="button"
                     size="sm"
-                    onClick={() => {
-                      //applyExampleSearch(EXAMPLE_NIP64_EVENT_ID)
-                      applyExampleEvent()
-                    }}
+                    onClick={() => applyExampleSearch(EXAMPLE_KIND_64_EVENT_ID)}
                   >
                     Example (NIP-64)
                   </Button>

@@ -4,7 +4,8 @@
   "homepage": ".",
   "private": true,
   "scripts": {
-    "start": "REACT_APP_VERSION=$npm_package_version REACT_APP_DEV_MODE=true react-app-rewired start",
+    "dev:start": "REACT_APP_DEV_MODE=true npm run start",
+    "start": "REACT_APP_VERSION=$npm_package_version react-app-rewired start",
     "build": "REACT_APP_VERSION=$npm_package_version react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",

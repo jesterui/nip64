@@ -6,8 +6,9 @@ const developmentRelays = [
 ]
 
 const publicRelays = [
-  'wss://nostr-pub.wellorder.net',
+  //'wss://nostr-pub.wellorder.net',
   'wss://relay.damus.io',
+  'wss://relay.primal.net',
   'wss://relay.snort.social',
   'wss://nostr.swiss-enigma.ch',
 ]
