@@ -154,6 +154,7 @@ export default function SearchPage() {
                   <Button
                     type="button"
                     size="sm"
+                    color="primary"
                     onClick={() => applyExampleSearch(EXAMPLE_KIND_64_EVENT_ID)}
                   >
                     Example (NIP-64)

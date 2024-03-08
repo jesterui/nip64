@@ -113,10 +113,10 @@ export default function ValidatePage() {
         </div>
 
         <div className="flex gap-4">
-          <Button type="button" size="sm" onClick={() => setPgnInputValue(EXAMPLE_NIP64_PGN0)}>
+          <Button type="button" size="sm" color="primary" onClick={() => setPgnInputValue(EXAMPLE_NIP64_PGN0)}>
             Example PGN 1
           </Button>
-          <Button type="button" size="sm" onClick={() => setPgnInputValue(EXAMPLE_NIP64_PGN1)}>
+          <Button type="button" size="sm" color="primary" onClick={() => setPgnInputValue(EXAMPLE_NIP64_PGN1)}>
             Example PGN 2
           </Button>
         </div>
