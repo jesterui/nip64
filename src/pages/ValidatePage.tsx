@@ -2,7 +2,7 @@ import { PropsWithChildren, useEffect, useMemo, useState } from 'react'
 import { Alert, AlertProps, Button, Form, InputProps, Textarea } from 'react-daisyui'
 import { validatePgn, parsePgn, splitPgn } from '../utils/pgn'
 import { ParseTree, SplitGame } from '@mliebelt/pgn-parser'
-import { EXAMPLE_NIP64_PGN } from '../utils/examples'
+import { EXAMPLE_NIP64_PGN0, EXAMPLE_NIP64_PGN1 } from '../utils/examples'
 import { PgnViewer } from '../components/PgnViewer'
 
 type PgnFormProps = {
@@ -113,8 +113,11 @@ export default function ValidatePage() {
         </div>
 
         <div className="flex gap-4">
-          <Button type="button" size="sm" onClick={() => setPgnInputValue(EXAMPLE_NIP64_PGN)}>
+          <Button type="button" size="sm" onClick={() => setPgnInputValue(EXAMPLE_NIP64_PGN0)}>
             Example PGN 1
+          </Button>
+          <Button type="button" size="sm" onClick={() => setPgnInputValue(EXAMPLE_NIP64_PGN1)}>
+            Example PGN 2
           </Button>
         </div>
 
