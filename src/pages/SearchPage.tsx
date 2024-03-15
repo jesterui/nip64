@@ -196,13 +196,13 @@ export default function SearchPage() {
                           {searchResult.kind === NIP64_KIND ? (
                             <>
                               <Badge variant="outline" color="success">
-                                This is a NIP-64 Event
+                                NIP-64
                               </Badge>
                             </>
                           ) : (
                             <>
                               <Badge variant="outline" color="error">
-                                This is&nbsp;<strong>not</strong>&nbsp;a NIP-64 Event
+                                <strong>not</strong>&nbsp;NIP-64
                               </Badge>
                             </>
                           )}

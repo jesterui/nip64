@@ -36,7 +36,11 @@ export function IndexPage() {
               <code className="font-mono">`content`</code>
             </h4>
 
-            <Textarea className="w-full h-full bg-base-200 font-mono" value={EXAMPLE_EVENT.content} readOnly></Textarea>
+            <Textarea
+              className="w-full h-full min-h-96 bg-base-200 font-mono"
+              value={EXAMPLE_EVENT.content}
+              readOnly
+            ></Textarea>
           </div>
         </div>
       </div>
