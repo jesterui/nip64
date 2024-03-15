@@ -4,12 +4,6 @@ body {
   --cg-height: 368px;
 }
 
-.lichess-pgn-viewer-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
-  gap: 2em;
-}
-
 .lichess-pgn-viewer-container > div {
   max-width: 600px;
 }
