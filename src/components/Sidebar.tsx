@@ -6,6 +6,7 @@ import {
   GlobeAltIcon,
   InformationCircleIcon,
   DocumentCheckIcon,
+  ArrowTopRightOnSquareIcon,
 } from '@heroicons/react/24/outline'
 import { Menu } from 'react-daisyui'
 import ROUTES from '../routes'
@@ -22,7 +23,7 @@ export function Sidebar({ title, children }: PropsWithChildren<SidebarProps>) {
         <Menu.Item>
           <NavLink to={ROUTES.index}>
             <HomeIcon className="w-6 h-6" />
-            Index
+            Home
           </NavLink>
         </Menu.Item>
         <Menu.Item>
@@ -47,6 +48,12 @@ export function Sidebar({ title, children }: PropsWithChildren<SidebarProps>) {
           <NavLink to={ROUTES.settings}>
             <WrenchScrewdriverIcon className="w-6 h-6" />
             Settings
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item>
+          <NavLink to="https://github.com/nostr-protocol/nips/blob/master/64.md" target="_blank">
+            <ArrowTopRightOnSquareIcon className="w-6 h-6" />
+            NIP-64
           </NavLink>
         </Menu.Item>
       </Menu>

@@ -16,6 +16,16 @@ export function AboutPage({ name, version }: AboutPageProps) {
       <div className="my-4">
         <ul>
           <li>
+            <a className="link link-hover" href="https://github.com/nostr-protocol/nips/blob/master/64.md">
+              NIP-64 (GitHub)
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div className="my-4">
+        <ul>
+          <li>
             <a className="link link-hover" href="https://tailwindcss.com/">
               Tailwind CSS
             </a>
