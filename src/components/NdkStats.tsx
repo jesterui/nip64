@@ -16,19 +16,19 @@ export function NdkStats() {
     <>
       <Stats className="bg-base-200 shadow">
         <Stats.Stat className="cursor-pointer" onClick={() => modalRef.current?.showModal()}>
-          <Stats.Stat.Item variant="title">Total</Stats.Stat.Item>
-          <Stats.Stat.Item variant="value">{stats?.total ?? '?'}</Stats.Stat.Item>
-          <Stats.Stat.Item variant="desc">Total relays</Stats.Stat.Item>
+          <Stats.Stat.Title>Total</Stats.Stat.Title>
+          <Stats.Stat.Value>{stats?.total ?? '?'}</Stats.Stat.Value>
+          <Stats.Stat.Desc>Total relays</Stats.Stat.Desc>
         </Stats.Stat>
         <Stats.Stat>
-          <Stats.Stat.Item variant="title">Connected</Stats.Stat.Item>
-          <Stats.Stat.Item variant="value">{stats?.connected ?? '?'}</Stats.Stat.Item>
-          <Stats.Stat.Item variant="desc">Conntected relays</Stats.Stat.Item>
+          <Stats.Stat.Title>Connected</Stats.Stat.Title>
+          <Stats.Stat.Value>{stats?.connected ?? '?'}</Stats.Stat.Value>
+          <Stats.Stat.Desc>Conntected relays</Stats.Stat.Desc>
         </Stats.Stat>
         <Stats.Stat>
-          <Stats.Stat.Item variant="title">Disconnected</Stats.Stat.Item>
-          <Stats.Stat.Item variant="value">{stats?.disconnected ?? '?'}</Stats.Stat.Item>
-          <Stats.Stat.Item variant="desc">Disconntected relays</Stats.Stat.Item>
+          <Stats.Stat.Title>Disconnected</Stats.Stat.Title>
+          <Stats.Stat.Value>{stats?.disconnected ?? '?'}</Stats.Stat.Value>
+          <Stats.Stat.Desc>Disconntected relays</Stats.Stat.Desc>
         </Stats.Stat>
       </Stats>
       <Modal ref={modalRef} backdrop className="w-11/12 max-w-5xl" id="ndk-stats-total-relays-modal">
@@ -55,39 +55,36 @@ export function NdkStats() {
                 <div>
                   <Stats className="bg-base-200 shadow">
                     <Stats.Stat>
-                      <Stats.Stat.Item variant="title">Attempts</Stats.Stat.Item>
-                      <Stats.Stat.Item variant="value">{relay.connectionStats.attempts}</Stats.Stat.Item>
-                      <Stats.Stat.Item variant="desc" className="hidden">
+                      <Stats.Stat.Title>Attempts</Stats.Stat.Title>
+                      <Stats.Stat.Value>{relay.connectionStats.attempts}</Stats.Stat.Value>
+                      <Stats.Stat.Desc className="hidden">
                         The number of times a connection has been attempted.
-                      </Stats.Stat.Item>
+                      </Stats.Stat.Desc>
                     </Stats.Stat>
                     <Stats.Stat>
-                      <Stats.Stat.Item variant="title">Success</Stats.Stat.Item>
-                      <Stats.Stat.Item variant="value">{relay.connectionStats.success}</Stats.Stat.Item>
-                      <Stats.Stat.Item variant="desc" className="hidden">
+                      <Stats.Stat.Title>Success</Stats.Stat.Title>
+                      <Stats.Stat.Value>{relay.connectionStats.success}</Stats.Stat.Value>
+                      <Stats.Stat.Desc className="hidden">
                         The number of times a connection has been successfully established.
-                      </Stats.Stat.Item>
+                      </Stats.Stat.Desc>
                     </Stats.Stat>
                     <Stats.Stat>
-                      <Stats.Stat.Item variant="title">Connected at</Stats.Stat.Item>
-                      <Stats.Stat.Item variant="value">
+                      <Stats.Stat.Title>Connected at</Stats.Stat.Title>
+                      <Stats.Stat.Value>
                         {connectedAt
                           ? connectedAt.toLocaleTimeString(undefined, {
                               hour12: false,
                             })
                           : '?'}
-                      </Stats.Stat.Item>
-                      <Stats.Stat.Item variant="desc">
-                        {connectedAt ? connectedAt.toLocaleDateString() : '?'}
-                      </Stats.Stat.Item>
-                      <Stats.Stat.Item variant="desc" className="hidden">
+                      </Stats.Stat.Value>
+                      <Stats.Stat.Desc>{connectedAt ? connectedAt.toLocaleDateString() : '?'}</Stats.Stat.Desc>
+                      <Stats.Stat.Desc className="hidden">
                         The time the current connection was established in milliseconds.
-                      </Stats.Stat.Item>
+                      </Stats.Stat.Desc>
                     </Stats.Stat>
                     <Stats.Stat>
-                      <Stats.Stat.Item variant="title">Status</Stats.Stat.Item>
-                      <Stats.Stat.Item
-                        variant="value"
+                      <Stats.Stat.Title>Status</Stats.Stat.Title>
+                      <Stats.Stat.Value
                         className={classNames({
                           'text-green-300': relay.status === NDKRelayStatus.CONNECTING,
                           'text-green-500': relay.status === NDKRelayStatus.CONNECTED,
@@ -95,10 +92,8 @@ export function NdkStats() {
                         })}
                       >
                         {NDKRelayStatus[relay.status]}
-                      </Stats.Stat.Item>
-                      <Stats.Stat.Item variant="desc" className="hidden">
-                        The status of the connection.
-                      </Stats.Stat.Item>
+                      </Stats.Stat.Value>
+                      <Stats.Stat.Desc className="hidden">The status of the connection.</Stats.Stat.Desc>
                     </Stats.Stat>
                   </Stats>
                 </div>
