@@ -1587,3 +1587,19 @@ Spanish middlegame extremely instructive. We often admire his combinations and
 tend to forget he was also a very well-rounded player with above average
 positional understanding.} 1-0
 `
+
+// First puzzle in lichess "Open Database" (see https://database.lichess.org/#puzzles)
+// ```csv
+// PuzzleId,FEN,Moves,Rating,RatingDeviation,Popularity,NbPlays,Themes,GameUrl,OpeningTags
+// 00008,r6k/pp2r2p/4Rp1Q/3p4/8/1N1P2R1/PqP2bPP/7K b - - 0 24,f2g3 e6e7 b2b1 b3c1 b1c1 h6c1,1974,76,94,6337,crushing hangingPiece long middlegame,https://lichess.org/787zsVup/black#47,
+// ```
+export const EXAMPLE_NIP64_PGN2 = `[Event "Puzzle 00008"]
+[Site "https://lichess.org/787zsVup/black#47"]
+[Date "????.??.??"]
+[Round "-"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[FEN "r6k/pp2r2p/4Rp1Q/3p4/8/1N1P2R1/PqP2bPP/7K b - - 0 24"]
+
+*`
