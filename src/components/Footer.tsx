@@ -38,6 +38,7 @@ export function Footer() {
             className="link link-hover flex items-center"
             href="https://github.com/nostr-protocol/nips/blob/master/64.md"
             target="_blank"
+            rel="noreferrer"
           >
             NIP-64 (GitHub) <ArrowTopRightOnSquareIcon className="ms-1 w-4 h-4" />
           </a>
